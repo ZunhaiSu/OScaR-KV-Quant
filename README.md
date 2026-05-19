@@ -1,7 +1,7 @@
 <h1 align="center">
   <img src="oscar.png" width="180"><br>
   OScaR: The Occam's Razor for Extreme KV Cache Quantization in LLMs and Beyond<br>
-  <sub><b>⚡ Redefining the accuracy-efficiency Pareto front for X-LLMs KV cache quantization</b></sub>
+  <sub><b>⚡ Data-free · Calibration-free · Plug-and-play for X-LLMs</b></sub>
 </h1>
 
 <div align="center">
