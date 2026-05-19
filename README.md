@@ -26,7 +26,7 @@
   - [Text-Only LLMs: LongBench-E](#text-only-llms-longbench-e)
   - [Multi-Modal LLMs: OCRBench](#multi-modal-llms-ocrbench)
   - [Omni-Modal LLMs: MMAU-Pro](#omni-modal-llms-mmau-pro)
-- [Installation](#installation)
+- [Installation](#-installation)
 - [Quick Start](#-quick-start)
   - [Smoke Test](#smoke-test)
   - [Full Benchmark](#full-benchmark)
@@ -113,7 +113,7 @@ On the challenging MMAU-Pro benchmark for omni-modal understanding, OScaR surpas
 
 > **Note:** Detailed experimental setups and TurboQuant+ implementation details are available in the original paper.
 
-## Installation
+## 🛠️ Installation
 
 ```bash
 git clone --recursive https://github.com/ZunhaiSu/OScaR-KV-Quant.git OScaR
@@ -232,8 +232,8 @@ bash evaluation/scripts/example.sh
 If you find OScaR useful for your research or production, please cite our paper:
 
 ```bibtex
-@article{su2026attention,
-  title={Attention Sink in Transformers: A Survey on Utilization, Interpretation, and Mitigation},
+@article{su2026oscar,
+  title={OScaR: The Occam's Razor for Extreme KV Cache Quantization in LLMs and Beyond},
   author={Su, Zunhai and Yang, Rui and Zhang, Chao and Liu, Yaxiu and Zhang, Yifan and Wu, Wei and Xiong, Jing and Du, Dayou and others},
   journal={arXiv preprint arXiv:XXXX.XXXXX},
   year={2026}
