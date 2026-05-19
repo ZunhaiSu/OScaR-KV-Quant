@@ -4,6 +4,9 @@
 </h1>
 
 <div align="center">
+  <a href="#"><img src="https://img.shields.io/badge/Tsinghua-University-8A2BE2.svg" alt="Tsinghua"></a>
+  <a href="#"><img src="https://img.shields.io/badge/HKU-The%20University%20of%20Hong%20Kong-0033A0.svg" alt="HKU"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Team-Meituan%20LongCat-brightgreen.svg" alt="Team"></a>
   <a href="https://arxiv.org/abs/XXXX.XXXXX"><img src="https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b.svg" alt="arXiv"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
 </div>
