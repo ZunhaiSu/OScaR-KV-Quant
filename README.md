@@ -1,6 +1,100 @@
-# OScaR
-[![arXiv](https://img.shields.io/badge/arXiv-2410.13276-b31b1b.svg)](https://arxiv.org/abs/2503.18773)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+<h1 align="center">
+  <img src="oscar.png" width="150"><br>
+  OScaR: The Occam's Razor for Extreme KV Cache Quantization in LLMs and Beyond
+</h1>
+
+<div align="center">
+  <a href="https://arxiv.org/abs/XXXX.XXXXX"><img src="https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b.svg" alt="arXiv"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
+</div>
+
+## 🔥 Latest News
+
+- **[Upcoming]** 🔧 vLLM & SGLang backend integration — under active development, official support will be announced in future releases.
+
+- **[2026-05-20]** 🎉 Our paper *"OScaR: The Occam's Razor for Extreme KV Cache Quantization in LLMs and Beyond"* is now available on arXiv! [[Link](https://arxiv.org/abs/XXXX.XXXXX)]
+
+- **[2026-05-19]** 🚀 Codebase and evaluation suite publicly released.
+
+## 📖 Overview
+
+<div align="center">
+  <img src="overview.png" width="90%">
+</div>
+
+The rapid advancement toward **long-context reasoning** and **multi-modal intelligence** has made KV cache memory footprint a dominant bottleneck. We revisit the inherent limitations of the established **per-channel quantization paradigm** and identify **Token Norm Imbalance (TNI)** as the primary bottleneck to quantization fidelity.
+
+Rather than relying on intricate pipelines, we follow the principle of **Occam's Razor**. We propose **OScaR (Omni-Scaled Canalized Rotation)** , an accurate and lightweight KV cache compression framework for X-LLMs (text-only, multi-modal, and omni-modal LLMs). 
+
+### TNI in X-LLMs
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><strong>Text-Only LLMs</strong><br><img src="LLM-TNI.png" width="95%"><br><em>Low-norm outlier tokens (Attention Sinks)</em></td>
+      <td align="center"><strong>Multi-Modal LLMs</strong><br><img src="MLLM-TNI.png" width="95%"><br><em>Large-norm outliers</em></td>
+    </tr>
+  </table>
+</div>
+
+> TNI is pervasive across text-only, multi-modal, and omni-modal LLMs. In text-only models, it manifests as low-norm outlier tokens, commonly referred to as Attention Sinks. In multi-modal settings, TNI exhibits more diverse forms, including large-norm outliers, broader norm variations, and significant inter-modality disparities. Additional visualizations and detailed experimental configurations are provided in the paper.
+
+
+## ✨ Key Features
+
+- 🔍 **Unveils TNI as the structural bottleneck** of per-channel quantization through both empirical and theoretical analysis.
+
+- 🪒 **Streamlined framework** guided by Occam's Razor — requiring only two essential operations, **Canalized Rotation** and **Omni-Token Scaling**, with no training or calibration overhead.
+
+- 📈 **Redefines the Pareto front** for X-LLMs, delivering near-lossless INT2 quantization across diverse benchmarks while maintaining low computational complexity.
+
+- ⚡ **Optimized CUDA kernels** built upon BitDecoding and HadaCore with Tensor Core acceleration, achieving 3.0× decoding speedup, 5.3× memory reduction, and 4.1× throughput increase.
+
+## 📊 Main Results
+
+### LongBench-E
+
+OScaR achieves the highest average accuracy among all 2-bit methods on LongBench-E, outperforming KIVI, OTT, QuaRot, and TurboQuant+ across both Llama-3.1-8B and Qwen3-8B.
+
+| Method | Llama-3.1-8B | Qwen3-8B |
+|:-------|:------------:|:--------:|
+| 16-bit Baseline | 41.70 | 49.56 |
+| QuaRot (INT2) | 37.94 | 40.13 |
+| RotateKV (INT2) | 37.98 | 42.95 |
+| KIVI (INT2) | 39.84 | 47.95 |
+| OTT (INT2) | 40.74 | 48.21 |
+| TurboQuant+ (2.5-bit) | 40.03 | 47.56 |
+| **OScaR (INT2)** | **41.75** | **48.74** |
+
+### OCRBench
+
+On OCRBench, OScaR consistently outperforms other 2-bit methods across LLaVA-v1.6-vicuna-7B, Qwen3-VL-8B, and Qwen3-VL-4B.
+
+| Method | LLaVA-v1.6-7B | Qwen3-VL-8B | Qwen3-VL-4B |
+|:-------|:-------------:|:-----------:|:-----------:|
+| 16-bit Baseline | 536 | 858 | 852 |
+| QuaRot (INT2) | 481 | 722 | 773 |
+| RotateKV (INT2) | 473 | 754 | 638 |
+| KIVI (INT2) | 488 | 851 | 813 |
+| OTT (INT2) | 513 | 850 | 831 |
+| TurboQuant+ (2.5-bit) | 501 | 847 | 828 |
+| **OScaR (INT2)** | **519** | **856** | **838** |
+
+### MMAU-Pro
+
+On the challenging MMAU-Pro benchmark for omni-modal understanding, OScaR surpasses both the 16-bit baseline and all quantized methods across open-ended QA, Good Rate, and Audio Instruction Following (AIF).
+
+| Method (Qwen3-Omni-30B-A3B) | Open-ended | Good Rate | AIF |
+|:---------------------------|:----------:|:---------:|:---:|
+| 16-bit Baseline | 66.2 | 27.8 | 87.4 |
+| KIVI (INT2) | 65.8 | 27.0 | 78.2 |
+| OTT (INT2) | 65.8 | 26.9 | 83.9 |
+| TurboQuant+ (2.5-bit) | 66.6 | 27.0 | 79.3 |
+| **OScaR (INT2)** | **67.4** | **29.8** | **88.5** |
+
+> **Note:** Detailed experimental setups and TurboQuant+ implementation details are available in the original paper.
+
+
 
 ## Setup
 ```bash
