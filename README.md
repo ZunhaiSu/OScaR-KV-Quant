@@ -16,6 +16,25 @@
 
 - **[2026-05-19]** 🚀 Codebase and evaluation suite publicly released.
 
+## 📚 Table of Contents
+
+- [Latest News](#-latest-news)
+- [Overview](#-overview)
+  - [TNI in X-LLMs](#tni-in-x-llms)
+- [Key Features](#-key-features)
+- [Main Results](#-main-results)
+  - [Text-Only LLMs: LongBench-E](#text-only-llms-longbench-e)
+  - [Multi-Modal LLMs: OCRBench](#multi-modal-llms-ocrbench)
+  - [Omni-Modal LLMs: MMAU-Pro](#omni-modal-llms-mmau-pro)
+- [Installation](#installation)
+- [Quick Start](#-quick-start)
+  - [Smoke Test](#smoke-test)
+  - [Full Benchmark](#full-benchmark)
+  - [Accuracy Evaluation](#accuracy-evaluation-qasper-e)
+  - [Single Example](#single-example)
+- [Citation](#citation)
+- [Acknowledgement](#acknowledgement)
+
 ## 📖 Overview
 
 <div align="center">
@@ -52,7 +71,7 @@ Rather than relying on intricate pipelines, we follow the principle of **Occam's
 
 ## 📊 Main Results
 
-### LongBench-E
+### Text-Only LLMs: LongBench-E
 
 OScaR achieves the highest average accuracy among all 2-bit methods on LongBench-E, outperforming KIVI, OTT, QuaRot, and TurboQuant+ across both Llama-3.1-8B and Qwen3-8B.
 
@@ -66,7 +85,7 @@ OScaR achieves the highest average accuracy among all 2-bit methods on LongBench
 | TurboQuant+ (2.5-bit) | 40.03 | 47.56 |
 | **OScaR (INT2)** | **41.75** | **48.74** |
 
-### OCRBench
+### Multi-Modal LLMs: OCRBench
 
 On OCRBench, OScaR consistently outperforms other 2-bit methods across LLaVA-v1.6-vicuna-7B, Qwen3-VL-8B, and Qwen3-VL-4B.
 
@@ -80,7 +99,7 @@ On OCRBench, OScaR consistently outperforms other 2-bit methods across LLaVA-v1.
 | TurboQuant+ (2.5-bit) | 501 | 847 | 828 |
 | **OScaR (INT2)** | **519** | **856** | **838** |
 
-### MMAU-Pro
+### Omni-Modal LLMs: MMAU-Pro
 
 On the challenging MMAU-Pro benchmark for omni-modal understanding, OScaR surpasses both the 16-bit baseline and all quantized methods across open-ended QA, Good Rate, and Audio Instruction Following (AIF).
 
@@ -94,11 +113,10 @@ On the challenging MMAU-Pro benchmark for omni-modal understanding, OScaR surpas
 
 > **Note:** Detailed experimental setups and TurboQuant+ implementation details are available in the original paper.
 
+## Installation
 
-
-## Setup
 ```bash
-git clone --recursive <your-oscar-repo-url> OScaR
+git clone --recursive https://github.com/ZunhaiSu/OScaR-KV-Quant.git OScaR
 cd OScaR
 
 uv venv --python 3.10 .venv-local
@@ -108,25 +126,28 @@ git submodule update --init --recursive
 
 uv pip install --index-url https://download.pytorch.org/whl/cu124 torch==2.6.0
 uv pip install -r requirements.txt
-uv pip install --no-build-isolation flash-attn
+uv pip install --no-build-isolation flash-attn==2.8.3
 
 python setup.py build_ext --inplace
 ```
+> Tested Environment:
+> - Python `3.10.17`
+> - PyTorch `2.6.0+cu124`
+> - `flash-attn 2.8.3`
+> - `transformers 4.57.6`
 
-Validated stack on H20:
+## 🚀 Quick Start
 
-- Python `3.10.17`
-- PyTorch `2.6.0+cu124`
-- `flash-attn 2.8.3`
-- `transformers 4.57.6`
+Set the model path:
 
-## Run
-Set `MODEL_PATH` to your local Qwen3 checkpoint path before running the suite.
-
-In this branch, OScaR refers to the Qwen3 `2-bit + Hadamard + norm` path. The
-public attention backend name is `oscar`.
+```bash
+export MODEL_PATH=/path/to/Qwen3-8B
+```
 
 ### Smoke Test
+
+Run a quick validation of the installation:
+
 ```bash
 CUDA_VISIBLE_DEVICES=0 python evaluation/scripts/run_qwen3_suite.py \
   --mode smoke \
@@ -136,7 +157,10 @@ CUDA_VISIBLE_DEVICES=0 python evaluation/scripts/run_qwen3_suite.py \
   --dtype bfloat16
 ```
 
-### Full Benchmark Sweep
+### Full Benchmark
+
+Run the complete evaluation suite:
+
 ```bash
 CUDA_VISIBLE_DEVICES=0 python evaluation/scripts/run_qwen3_suite.py \
   --mode full \
@@ -146,7 +170,8 @@ CUDA_VISIBLE_DEVICES=0 python evaluation/scripts/run_qwen3_suite.py \
   --dtype bfloat16
 ```
 
-If the extension has already been built and Python files have already been checked, you can skip those steps:
+To skip rebuild if extensions are already compiled:
+
 ```bash
 CUDA_VISIBLE_DEVICES=0 python evaluation/scripts/run_qwen3_suite.py \
   --mode full \
@@ -158,14 +183,11 @@ CUDA_VISIBLE_DEVICES=0 python evaluation/scripts/run_qwen3_suite.py \
   --dtype bfloat16
 ```
 
-### OScaR Accuracy Quick Start
-The quickest end-to-end accuracy check for OScaR is Qasper-E:
+### Accuracy Evaluation (Qasper-E)
+Quick end-to-end accuracy validation using the Qasper-E benchmark:
 
 ```bash
-export MODEL_PATH=/path/to/Qwen3-8B
-export PY=.venv-local/bin/python
-
-CUDA_VISIBLE_DEVICES=0 $PY eval_longbench.py \
+CUDA_VISIBLE_DEVICES=0 $(which python) eval_longbench.py \
   --model_path "$MODEL_PATH" \
   --datasets qasper_e \
   --max_input_len 32768 \
@@ -177,17 +199,21 @@ CUDA_VISIBLE_DEVICES=0 $PY eval_longbench.py \
   --log_every 1 \
   --resume
 
-$PY eval_long_bench.py \
+$(which python) eval_long_bench.py \
   --path pred_e/qwen3_8b_hn2bit_offline_v_r128_ev256_qasper \
   --e
 ```
 
-This path is OScaR: 2-bit KV cache quantization with K Hadamard + norm and
-offline V Hadamard, dispatched through the CUDA kernels in `oscar_cuda`. It assumes
-`longbench_data/data/qasper_e.jsonl` and
-`longbench_config/{dataset2prompt.json,dataset2maxlen.json}` are available.
+> **Note:** This requires the following data files:
+> - `longbench_data/data/qasper_e.jsonl`
+> - `longbench_config/dataset2prompt.json`
+> - `longbench_config/dataset2maxlen.json`
 
-### OScaR Single Example
+
+### Single Example
+
+Run a single inference example with explicit configuration:
+
 ```bash
 MODEL_PATH="${MODEL_PATH}" \
 DTYPE=bfloat16 \
@@ -200,31 +226,20 @@ ATTN_BACKEND=oscar \
 bash evaluation/scripts/example.sh
 ```
 
-OScaR is a high-performance, GPU-optimized system
-designed to accelerate long-context LLMs decoding with a low-bit KV
-cache. Achieve **3-9x speedup** than Flash Attention v2.
-![overview](imgs/overview.png)
-![scheme](imgs/scheme.png)
-
-## Benchmark
-* Kernel Performance in RTX4090
-![overview](imgs/4090.png)
-* Kernel Performance in A100
-![overview](imgs/a100.png)
 
 ## Citation
-If you find OScaR useful or want to use in your projects, please kindly cite our paper:
-```
-@misc{du2025bitdecodingunlockingtensorcores,
-      title={BitDecoding: Unlocking Tensor Cores for Long-Context LLMs Decoding with Low-Bit KV Cache}, 
-      author={Dayou Du and Shijie Cao and Jianyi Cheng and Ting Cao and Mao Yang},
-      year={2025},
-      eprint={2503.18773},
-      archivePrefix={arXiv},
-      primaryClass={cs.AR},
-      url={https://arxiv.org/abs/2503.18773}, 
+
+If you find OScaR useful for your research or production, please cite our paper:
+
+```bibtex
+@article{su2026attention,
+  title={Attention Sink in Transformers: A Survey on Utilization, Interpretation, and Mitigation},
+  author={Su, Zunhai and Yang, Rui and Zhang, Chao and Liu, Yaxiu and Zhang, Yifan and Wu, Wei and Xiong, Jing and Du, Dayou and others},
+  journal={arXiv preprint arXiv:XXXX.XXXXX},
+  year={2026}
 }
 ```
 
 ## Acknowledgement
-OScaR is inspired by many open-source libraries, including (but not limited to) [flash-attention](https://github.com/Dao-AILab/flash-attention/tree/main), [flute](https://github.com/HanGuo97/flute), [Atom](https://github.com/efeslab/Atom), [omniserve](https://github.com/mit-han-lab/omniserve), [KIVI](https://github.com/jy-yuan/KIVI).
+
+OScaR is inspired by many open-source libraries, including but not limited to [BitDecoding](https://github.com/OpenBitSys/BitDecoding), [HadaCore](https://github.com/segyges/hadacore), [KIVI](https://github.com/jy-yuan/KIVI), and [SGLang-FluentLLM](https://github.com/meituan-longcat/SGLang-FluentLLM).
