@@ -49,7 +49,7 @@
 
 The rapid advancement toward **long-context reasoning** and **multi-modal intelligence** has made KV cache memory footprint a dominant bottleneck. We revisit the inherent limitations of the established **per-channel quantization paradigm** and identify **Token Norm Imbalance (TNI)** as the primary bottleneck to quantization fidelity.
 
-Rather than relying on intricate pipelines, we follow the principle of **Occam's Razor**. We propose **OScaR (Omni-Scaled Canalized Rotation)** , an accurate and lightweight KV cache compression framework for X-LLMs (text-only, multi-modal, and omni-modal LLMs). 
+Rather than relying on intricate pipelines, we follow the principle of **Occam's Razor**. We propose **OScaR (Omni-Scaled Canalized Rotation)** , an accurate and lightweight KV cache compression framework for **X-LLMs (text-only, multi-modal, and omni-modal LLMs)**. 
 
 ### TNI in X-LLMs
 
@@ -73,11 +73,11 @@ Rather than relying on intricate pipelines, we follow the principle of **Occam's
 
 - 🔍 **Unveils TNI as the structural bottleneck** of per-channel quantization through both empirical and theoretical analysis.
 
-- 🪒 **Streamlined framework** guided by Occam's Razor — requiring only two essential operations, **Canalized Rotation** and **Omni-Token Scaling**, with no training or calibration overhead.
+- 🪒 **Streamlined OScaR framework** guided by Occam's Razor — requiring only two essential operations, **Canalized Rotation** and **Omni-Token Scaling**, with no training or calibration overhead.
 
-- 📈 **Redefines the Pareto front** for X-LLMs, delivering near-lossless INT2 quantization across diverse benchmarks while maintaining low computational complexity.
+- 📈 **Redefines the Pareto front** for X-LLMs KV quantization, delivering near-lossless INT2 quantization across diverse benchmarks while maintaining low computational complexity.
 
-- ⚡ **Optimized CUDA kernels** built on BitDecoding and HadaCore with Tensor Core acceleration, achieving 3.0× decoding speedup, 5.3× memory reduction, and 4.1× throughput increase vs. BF16 FlashDecoding-v2.
+- ⚡ **Optimized System Design and CUDA kernels** built on BitDecoding and HadaCore with Tensor Core acceleration, achieving 3.0× decoding speedup, 5.3× memory reduction, and 4.1× throughput increase vs. BF16 FlashDecoding-v2.
 
 
 ## 📊 Main Results
