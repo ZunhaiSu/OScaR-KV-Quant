@@ -67,7 +67,7 @@ Rather than relying on intricate pipelines, we follow the principle of **Occam's
 
 - 📈 **Redefines the Pareto front** for X-LLMs, delivering near-lossless INT2 quantization across diverse benchmarks while maintaining low computational complexity.
 
-- ⚡ **Optimized CUDA kernels** built upon BitDecoding and HadaCore with Tensor Core acceleration, achieving 3.0× decoding speedup, 5.3× memory reduction, and 4.1× throughput increase.
+- ⚡ **Optimized CUDA kernels** built on BitDecoding and HadaCore with Tensor Core acceleration, achieving 3.0× decoding speedup, 5.3× memory reduction, and 4.1× throughput increase vs. BF16 FlashDecoding-v2.
 
 ## 📊 Main Results
 
