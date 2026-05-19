@@ -245,7 +245,7 @@ If you find OScaR useful for your research or production, please cite our paper:
 ```bibtex
 @article{su2026oscar,
   title={OScaR: The Occam's Razor for Extreme KV Cache Quantization in LLMs and Beyond},
-  author={Su, Zunhai and Yang, Rui and Zhang, Chao and Liu, Yaxiu and Zhang, Yifan and Wu, Wei and Xiong, Jing and Du, Dayou and others},
+  author={Su, Zunhai and Yang, Rui and Zhang, Chao and Liu, Yaxiu and Zhang, Yifan and Wu, Wei and Xiong, Jing and Du, Dayou and Zhuang, Xialie and Qian, Yulei and Xie, Yuchen and Wu, Yik-Chung and Yang, Hongxia and Wong, Ngai},
   journal={arXiv preprint arXiv:XXXX.XXXXX},
   year={2026}
 }
