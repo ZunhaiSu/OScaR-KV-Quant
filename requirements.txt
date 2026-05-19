@@ -1,0 +1,11 @@
+torch
+numpy
+matplotlib
+pandas
+packaging
+ninja
+flash-attn
+transformers
+datasets
+accelerate
+tqdm
