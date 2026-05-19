@@ -5,11 +5,11 @@
 </h1>
 
 <div align="center">
-  <a href="#"><img src="https://img.shields.io/badge/Tsinghua-University-8A2BE2.svg" alt="Tsinghua"></a>
-  <a href="#"><img src="https://img.shields.io/badge/HKU-The%20University%20of%20Hong%20Kong-0033A0.svg" alt="HKU"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Team-Meituan%20LongCat-brightgreen.svg" alt="Team"></a>
-  <a href="https://arxiv.org/abs/XXXX.XXXXX"><img src="https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b.svg" alt="arXiv"></a>
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Tsinghua-University-8B5CF6.svg" alt="Tsinghua"></a>
+  <a href="#"><img src="https://img.shields.io/badge/HKU-The%20University%20of%20Hong%20Kong-2D68C4.svg" alt="HKU"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Team-Meituan%20LongCat-22C55E.svg" alt="Team"></a>
+  <a href="https://arxiv.org/abs/XXXX.XXXXX"><img src="https://img.shields.io/badge/arXiv-XXXX.XXXXX-B31B1B.svg" alt="arXiv"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-3B82F6.svg" alt="License"></a>
 </div>
 
 ## 🔥 Latest News
@@ -65,6 +65,10 @@ Rather than relying on intricate pipelines, we follow the principle of **Occam's
 
 ## ✨ Key Features
 
+<div align="center">
+  <img src="oscar-overview.png" width="70%">
+</div>
+
 - 🔍 **Unveils TNI as the structural bottleneck** of per-channel quantization through both empirical and theoretical analysis.
 
 - 🪒 **Streamlined framework** guided by Occam's Razor — requiring only two essential operations, **Canalized Rotation** and **Omni-Token Scaling**, with no training or calibration overhead.
@@ -72,6 +76,7 @@ Rather than relying on intricate pipelines, we follow the principle of **Occam's
 - 📈 **Redefines the Pareto front** for X-LLMs, delivering near-lossless INT2 quantization across diverse benchmarks while maintaining low computational complexity.
 
 - ⚡ **Optimized CUDA kernels** built on BitDecoding and HadaCore with Tensor Core acceleration, achieving 3.0× decoding speedup, 5.3× memory reduction, and 4.1× throughput increase vs. BF16 FlashDecoding-v2.
+
 
 ## 📊 Main Results
 
