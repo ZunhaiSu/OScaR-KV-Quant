@@ -1,7 +1,9 @@
 <h1 align="center">
   <img src="oscar.png" width="180"><br>
   OScaR: The Occam's Razor for Extreme KV Cache Quantization in LLMs and Beyond<br>
-  <sub><b>⚡ Data-free · Calibration-free · Plug-and-play for X-LLMs</b></sub>
+  <sub style="color: #FF6B6B; font-family: cursive;">
+    ⚡ Data-free · Training & Calibration-free · Plug-and-Play for X-LLMs
+  </sub>
 </h1>
 
 <div align="center">
