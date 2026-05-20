@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="oscar.png" width="180"><br>
+  <img src="pictures/oscar.png" width="180"><br>
   OScaR: The Occam's Razor for Extreme KV Cache Quantization in LLMs and Beyond<br>
   <sub style="color: #FF6B6B; font-family: cursive;">
     ⚡ Data-free · Training & Calibration-free · Plug-and-Play for X-LLMs
@@ -45,7 +45,7 @@
 ## 📖 Overview
 
 <div align="center">
-  <img src="overview.png" width="90%">
+  <img src="pictures/overview.png" width="90%">
 </div>
 
 The rapid advancement toward **long-context reasoning** and **multi-modal intelligence** has made KV cache memory footprint a dominant bottleneck. We revisit the inherent limitations of the established **per-channel quantization paradigm** and identify **Token Norm Imbalance (TNI)** as the primary bottleneck to quantization fidelity.
@@ -57,8 +57,8 @@ Rather than relying on intricate pipelines, we follow the principle of **Occam's
 <div align="center">
   <table>
     <tr>
-      <td align="center"><strong>Text-Only LLMs</strong><br><img src="LLM-TNI.png" width="95%"><br><em>Low-norm outlier tokens (Attention Sink tokens)</em></td>
-      <td align="center"><strong>Multi-Modal LLMs</strong><br><img src="MLLM-TNI.png" width="95%"><br><em>Large-norm outliers</em></td>
+      <td align="center"><strong>Text-Only LLMs</strong><br><img src="pictures/LLM-TNI.png" width="95%"><br><em>Low-norm outlier tokens (Attention Sink tokens)</em></td>
+      <td align="center"><strong>Multi-Modal LLMs</strong><br><img src="pictures/MLLM-TNI.png" width="95%"><br><em>Large-norm outliers</em></td>
     </tr>
   </table>
 </div>
@@ -69,7 +69,7 @@ Rather than relying on intricate pipelines, we follow the principle of **Occam's
 ## ✨ Key Features
 
 <div align="center">
-  <img src="oscar-overview.png" width="70%">
+  <img src="pictures/oscar-overview.png" width="70%">
 </div>
 
 - 🔍 **Unveils TNI as the structural bottleneck** of per-channel quantization through both empirical and theoretical analysis.
