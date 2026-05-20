@@ -138,14 +138,13 @@ source .venv-local/bin/activate
 # Required for CUTLASS headers used by oscar_cuda.
 git submodule update --init --recursive
 
-# Install dependencies declared in pyproject.toml, including the cu124 torch index
-# pin and flash-attn's no-build-isolation handling.
-uv sync --extra cu124 --extra eval --no-install-project
+# Install dependencies declared in pyproject.toml, then install the project itself.
+uv sync --active --no-install-project
 uv pip install --no-build-isolation -e .
 ```
 > If you clone with `--recursive`, you should still run `git submodule update --init --recursive` before building to ensure `libs/cutlass` is present.
 >
-> The Python dependency source of truth is `pyproject.toml`. `torch==2.6.0`, `psutil`, and `flash-attn==2.8.3` are installed from there, while `tool.uv.sources` pins torch to the `cu124` PyTorch index and `tool.uv.no-build-isolation-package` disables build isolation for `flash-attn`. The final editable install still uses `--no-build-isolation` because this repository's CUDA extension build imports PyTorch from the active environment.
+> The Python dependency source of truth is `pyproject.toml`. `tool.uv.sources` pins `torch==2.6.0` to the `cu124` PyTorch index, and `tool.uv.no-build-isolation-package` disables build isolation for `flash-attn`. The editable install uses `--no-build-isolation` because this repository's CUDA extension build imports PyTorch from the active environment.
 
 > Tested Environment:
 > - Python `3.10.17`
@@ -187,7 +186,7 @@ $(which python) eval_long_bench.py \
 > - `longbench_config/dataset2prompt.json`
 > - `longbench_config/dataset2maxlen.json`
 >
-> The metric helper `longbench_metrics.py` is part of this repository, and its Python dependencies are included in the `eval` extra in `pyproject.toml`.
+> The metric helper `longbench_metrics.py` is part of this repository, and its Python dependencies are included in `pyproject.toml`.
 
 
 ### Single Example
