@@ -132,8 +132,8 @@ git clone https://github.com/ZunhaiSu/OScaR-KV-Quant.git OScaR
 cd OScaR
 
 # Prerequisite: install `uv` and ensure it is available on PATH.
-uv venv --python 3.10 --seed .venv-local
-source .venv-local/bin/activate
+uv venv --python 3.10 --seed oscar-env
+source oscar-env/bin/activate
 
 # Required for CUTLASS headers used by oscar_cuda.
 git submodule update --init --recursive
