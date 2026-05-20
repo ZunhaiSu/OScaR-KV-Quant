@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="oscar.png" width="180"><br>
+  <img src="pictures/oscar.png" width="180"><br>
   OScaR: The Occam's Razor for Extreme KV Cache Quantization in LLMs and Beyond<br>
   <sub style="color: #FF6B6B; font-family: cursive;">
     ⚡ Data-free · Training & Calibration-free · Plug-and-Play for X-LLMs
@@ -45,7 +45,7 @@
 ## 📖 Overview
 
 <div align="center">
-  <img src="overview.png" width="90%">
+  <img src="pictures/overview.png" width="90%">
 </div>
 
 The rapid advancement toward **long-context reasoning** and **multi-modal intelligence** has made KV cache memory footprint a dominant bottleneck. We revisit the inherent limitations of the established **per-channel quantization paradigm** and identify **Token Norm Imbalance (TNI)** as the primary bottleneck to quantization fidelity.
@@ -55,21 +55,22 @@ Rather than relying on intricate pipelines, we follow the principle of **Occam's
 ### TNI in X-LLMs
 
 <div align="center">
-  <table>
+  <table cellpadding="15" cellspacing="0" style="border-collapse: collapse; width: 100%;">
     <tr>
-      <td align="center"><strong>Text-Only LLMs</strong><br><img src="LLM-TNI.png" width="95%"><br><em>Low-norm outlier tokens (Attention Sink tokens)</em></td>
-      <td align="center"><strong>Multi-Modal LLMs</strong><br><img src="MLLM-TNI.png" width="95%"><br><em>Large-norm outliers</em></td>
+      <td width="33%" align="center"><strong>Text-Only LLMs</strong><br><img src="pictures/LLM-TNI.png" width="95%"><br><em>Low-norm outlier tokens<br>(Attention Sink tokens)</em></td>
+      <td width="33%" align="center"><strong>Multi-Modal LLMs</strong><br><img src="pictures/MLLM-TNI.png" width="95%"><br><em>Large-norm outliers</em></td>
+      <td width="33%" align="center"><strong>Multi-Modal LLMs</strong><br><img src="pictures/MLLM-TNI-2.png" width="95%"><br><em>Inter-modality disparities</em></td>
     </tr>
   </table>
 </div>
 
-> TNI is pervasive across X-LLMs. In text-only models, it manifests as low-norm outlier tokens, also known as Attention Sink tokens. In multi-modal settings, TNI exhibits more diverse forms, including large-norm outliers, broader norm variations, and significant inter-modality disparities. Additional visualizations and detailed experimental configurations are provided in the paper.
+> TNI is pervasive across X-LLMs. In text-only models, it manifests as low-norm outlier tokens, also known as Attention Sink tokens. In multi-modal settings, TNI exhibits more diverse forms, including large-norm outliers, significant inter-modality disparities, and broader norm variations. Additional visualizations and detailed experimental configurations are provided in the paper.
 
 
 ## ✨ Key Features
 
 <div align="center">
-  <img src="oscar-overview.png" width="70%">
+  <img src="pictures/oscar-overview.png" width="70%">
 </div>
 
 - 🔍 **Unveils TNI as the structural bottleneck** of per-channel quantization through both empirical and theoretical analysis.
@@ -177,10 +178,6 @@ CUDA_VISIBLE_DEVICES=0 $(which python) eval_longbench.py \
   --output_dir pred_e/oscar-qasper \
   --log_every 1 \
   --resume
-
-$(which python) eval_long_bench.py \
-  --path pred_e/oscar-qasper \
-  --e
 ```
 
 > **Note:** This requires the following data files:

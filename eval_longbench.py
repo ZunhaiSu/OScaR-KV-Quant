@@ -24,6 +24,17 @@ if str(EVAL_ROOT) not in sys.path:
 
 from oscar import Cache, DynamicCache, StaticCache  # noqa: E402
 import transformers.cache_utils  # noqa: E402
+from longbench_metrics import (  # noqa: E402
+    classification_score,
+    code_sim_score,
+    count_score,
+    qa_f1_score,
+    qa_f1_zh_score,
+    retrieval_score,
+    retrieval_zh_score,
+    rouge_score,
+    rouge_zh_score,
+)
 
 transformers.cache_utils.DynamicCache = DynamicCache
 transformers.cache_utils.StaticCache = StaticCache
@@ -31,7 +42,6 @@ transformers.cache_utils.Cache = Cache
 
 from transformers import AutoConfig, AutoTokenizer  # noqa: E402
 from qwen3 import Qwen3ForCausalLM  # noqa: E402
-from eval_long_bench import scorer_e  # noqa: E402
 from evaluation.example import apply_offline_v_hadamard  # noqa: E402
 
 
@@ -51,6 +61,30 @@ LONG_BENCH_E_DATASETS = [
     "lcc_e",
     "repobench-p_e",
 ]
+
+DATASET2METRIC = {
+    "narrativeqa": qa_f1_score,
+    "qasper": qa_f1_score,
+    "multifieldqa_en": qa_f1_score,
+    "multifieldqa_zh": qa_f1_zh_score,
+    "hotpotqa": qa_f1_score,
+    "2wikimqa": qa_f1_score,
+    "musique": qa_f1_score,
+    "dureader": rouge_zh_score,
+    "gov_report": rouge_score,
+    "qmsum": rouge_score,
+    "multi_news": rouge_score,
+    "vcsum": rouge_zh_score,
+    "trec": classification_score,
+    "triviaqa": qa_f1_score,
+    "samsum": rouge_score,
+    "lsht": classification_score,
+    "passage_retrieval_en": retrieval_score,
+    "passage_count": count_score,
+    "passage_retrieval_zh": retrieval_zh_score,
+    "lcc": code_sim_score,
+    "repobench-p": code_sim_score,
+}
 
 
 def seed_everything(seed: int) -> None:
@@ -117,6 +151,25 @@ def json_safe_score(score):
     if isinstance(score, float) and np.isnan(score):
         return None
     return score
+
+
+def scorer_e(dataset, predictions, answers, lengths, all_classes):
+    scores = {"0-4k": [], "4-8k": [], "8k+": []}
+    for prediction, ground_truths, length in zip(predictions, answers, lengths):
+        score = 0.0
+        if dataset in ["trec", "triviaqa", "samsum", "lsht"]:
+            prediction = prediction.lstrip("\n").split("\n")[0]
+        for ground_truth in ground_truths:
+            score = max(score, DATASET2METRIC[dataset](prediction, ground_truth, all_classes=all_classes))
+        if length < 4000:
+            scores["0-4k"].append(score)
+        elif length < 8000:
+            scores["4-8k"].append(score)
+        else:
+            scores["8k+"].append(score)
+    for key, values in scores.items():
+        scores[key] = round(100 * np.mean(values), 2)
+    return scores
 
 
 def build_model(args: argparse.Namespace):
