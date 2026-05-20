@@ -1,29 +1,34 @@
-import sys
-import warnings
 import os
 import re
 import ast
 from pathlib import Path
 from packaging.version import parse, Version
 import platform
-
-from setuptools import setup, find_packages
 import subprocess
+import sys
+import warnings
+
+from setuptools import setup
 
 import urllib.request
 import urllib.error
 from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
 
-import torch
-from torch.utils.cpp_extension import (
-    BuildExtension,
-    CppExtension,
-    CUDAExtension,
-    CUDA_HOME,
-)
-
-with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+try:
+    import torch
+    from torch.utils.cpp_extension import (
+        BuildExtension,
+        CppExtension,
+        CUDAExtension,
+        CUDA_HOME,
+    )
+except ModuleNotFoundError as exc:
+    if exc.name == "torch":
+        raise RuntimeError(
+            "PyTorch must be installed before building OScaR. "
+            "Install torch first, then rerun the package install with --no-build-isolation."
+        ) from exc
+    raise
 
 # ninja build does not work unless include_dirs are abs path
 this_dir = os.path.dirname(os.path.abspath(__file__))
@@ -235,29 +240,9 @@ class CachedWheelsCommand(_bdist_wheel):
 
 
 setup(
-    name=PACKAGE_NAME,
-    version=get_package_version(),
-    packages=find_packages(
-        exclude=(
-            "build",
-            "csrc",
-            "include",
-            "tests",
-            "dist",
-            "docs",
-            "benchmarks",
-            "oscar.egg-info",
-        )
-    ),
-    author="Dayou Du",
-    author_email="duda200054@gmail.com",
-    description="OScaR",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/Dao-AILab/flash-attention",
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: BSD License",
+        "License :: OSI Approved :: MIT License",
         "Operating System :: Unix",
     ],
     ext_modules=ext_modules,
@@ -266,11 +251,4 @@ setup(
     else {
         "bdist_wheel": CachedWheelsCommand,
     },
-    python_requires=">=3.7",
-    setup_requires=["ninja"],
-    install_requires=[
-        "torch",
-        "einops",
-        "packaging"
-    ],
 )

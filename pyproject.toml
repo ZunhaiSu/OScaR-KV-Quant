@@ -1,24 +1,52 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools>=68", "wheel", "packaging", "ninja"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "oscar-kvcache"
-version = "0.1.0"
-description = "OScaR: KV cache quantization with Hadamard rotation and norm factoring"
+name = "oscar-kv-quant"
+version = "1.0.0.post1"
+description = "OScaR: extreme KV cache quantization for long-context and multimodal LLMs"
 readme = "README.md"
 requires-python = ">=3.10"
+license = { text = "MIT" }
 dependencies = [
-    "torch>=2.5.0",
-    "transformers>=4.45.0",
-    "numpy>=1.24.0",
-    "accelerate>=1.0.0",
-    "flash-attn>=2.5.0",
-    "fast-hadamard-transform",
-    "rouge",
-    "jieba",
+    "accelerate",
+    "datasets",
+    "flash-attn==2.8.3",
     "fuzzywuzzy[speedup]",
+    "jieba",
+    "ninja",
+    "numpy",
+    "packaging",
+    "psutil",
+    "rouge",
+    "torch==2.6.0",
+    "tqdm",
+    "transformers",
 ]
+
+[project.optional-dependencies]
+analysis = [
+    "matplotlib",
+    "pandas",
+]
+
+[project.urls]
+Homepage = "https://github.com/ZunhaiSu/OScaR-KV-Quant"
+Repository = "https://github.com/ZunhaiSu/OScaR-KV-Quant"
+
+[tool.uv]
+no-build-isolation-package = ["flash-attn"]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cu124", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
 
 [tool.setuptools.packages.find]
 include = ["oscar*", "kv_cache_compression*"]
