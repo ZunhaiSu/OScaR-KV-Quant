@@ -1,24 +1,40 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools>=68", "wheel", "packaging", "ninja"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "oscar-kvcache"
-version = "0.1.0"
-description = "OScaR: KV cache quantization with Hadamard rotation and norm factoring"
+name = "oscar-kv-quant"
+version = "1.0.0.post1"
+description = "OScaR: extreme KV cache quantization for long-context and multimodal LLMs"
 readme = "README.md"
 requires-python = ">=3.10"
+license = { text = "MIT" }
 dependencies = [
-    "torch>=2.5.0",
-    "transformers>=4.45.0",
-    "numpy>=1.24.0",
-    "accelerate>=1.0.0",
-    "flash-attn>=2.5.0",
-    "fast-hadamard-transform",
-    "rouge",
-    "jieba",
-    "fuzzywuzzy[speedup]",
+    "numpy",
+    "packaging",
+    "transformers",
 ]
+
+[project.optional-dependencies]
+cuda = [
+    "flash-attn==2.8.3",
+]
+eval = [
+    "accelerate",
+    "datasets",
+    "fuzzywuzzy[speedup]",
+    "jieba",
+    "rouge",
+    "tqdm",
+]
+analysis = [
+    "matplotlib",
+    "pandas",
+]
+
+[project.urls]
+Homepage = "https://github.com/Iridescent-gcrace/OScaR-KV-Quant"
+Repository = "https://github.com/Iridescent-gcrace/OScaR-KV-Quant"
 
 [tool.setuptools.packages.find]
 include = ["oscar*", "kv_cache_compression*"]

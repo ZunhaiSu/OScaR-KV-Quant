@@ -242,7 +242,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--datasets", default="all", help="Comma-separated *_e datasets or 'all'")
     parser.add_argument("--data_dir", type=Path, default=PROJECT_ROOT / "longbench_data" / "data")
     parser.add_argument("--config_dir", type=Path, default=PROJECT_ROOT / "longbench_config")
-    parser.add_argument("--output_dir", type=Path, default=PROJECT_ROOT / "pred_e" / "qwen3_8b_hn2bit_offline_v")
+    parser.add_argument("--output_dir", type=Path, default=PROJECT_ROOT / "pred_e" / "oscar-qasper")
     parser.add_argument("--max_input_len", type=int, default=32768)
     parser.add_argument("--max_samples", type=int, default=None)
     parser.add_argument("--dtype", default="bfloat16")

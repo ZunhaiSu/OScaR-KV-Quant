@@ -131,25 +131,31 @@ On the challenging MMAU-Pro benchmark for omni-modal understanding, OScaR surpas
 git clone https://github.com/ZunhaiSu/OScaR-KV-Quant.git OScaR
 cd OScaR
 
-uv venv --python 3.10 .venv-local
+# Prerequisite: install `uv` and ensure it is available on PATH.
+uv venv --python 3.10 --seed .venv-local
 source .venv-local/bin/activate
 
 # Required for CUTLASS headers used by oscar_cuda.
 git submodule update --init --recursive
 
-uv pip install --index-url https://download.pytorch.org/whl/cu124 torch==2.6.0
-uv pip install -r requirements.txt
-uv pip install --no-build-isolation flash-attn==2.8.3
+pip install --index-url https://download.pytorch.org/whl/cu124 torch==2.6.0
 
-python setup.py build_ext --inplace
+# flash-attn's setup imports these packages during a clean source build.
+pip install numpy packaging psutil
+
+# Install flash-attn before the editable package install to avoid fresh-setup build-order issues.
+pip install --no-build-isolation flash-attn==2.8.3
+pip install --no-build-isolation -e ".[eval]"
 ```
 > If you clone with `--recursive`, you should still run `git submodule update --init --recursive` before building to ensure `libs/cutlass` is present.
+>
+> The Python dependency source of truth is `pyproject.toml`. The editable install uses `--no-build-isolation` because the CUDA extension build imports PyTorch from the active environment. `flash-attn` is installed first here because its source build is also sensitive to build order in a clean environment. The first build may take several minutes if a prebuilt wheel is unavailable.
 
 > Tested Environment:
 > - Python `3.10.17`
 > - PyTorch `2.6.0+cu124`
 > - `flash-attn 2.8.3`
-> - `transformers 4.57.6`
+> - `transformers 5.8.1` for a fresh installation from the current `pyproject.toml`
 
 ## 🚀 Quick Start
 
@@ -171,12 +177,12 @@ CUDA_VISIBLE_DEVICES=0 $(which python) eval_longbench.py \
   --device cuda:0 \
   --residual_evict_size 256 \
   --offline_v_hadamard \
-  --output_dir pred_e/qwen3_8b_hn2bit_offline_v_r128_ev256_qasper \
+  --output_dir pred_e/oscar-qasper \
   --log_every 1 \
   --resume
 
 $(which python) eval_long_bench.py \
-  --path pred_e/qwen3_8b_hn2bit_offline_v_r128_ev256_qasper \
+  --path pred_e/oscar-qasper \
   --e
 ```
 
@@ -185,7 +191,7 @@ $(which python) eval_long_bench.py \
 > - `longbench_config/dataset2prompt.json`
 > - `longbench_config/dataset2maxlen.json`
 >
-> The metric helper `longbench_metrics.py` is part of this repository, and its Python dependencies are included in `requirements.txt`.
+> The metric helper `longbench_metrics.py` is part of this repository, and its Python dependencies are included in the `eval` extra in `pyproject.toml`.
 
 
 ### Single Example
