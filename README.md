@@ -9,7 +9,7 @@
 <div align="center">
   <a href="#"><img src="https://img.shields.io/badge/THU-Tsinghua%20University-8B5CF6.svg" alt="THU"></a>
   <a href="#"><img src="https://img.shields.io/badge/HKU-The%20University%20of%20Hong%20Kong-2D68C4.svg" alt="HKU"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Team-Meituan%20LongCat-22C55E.svg" alt="Team"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Meituan-LongCat%20Team-22C55E.svg" alt="Team"></a>
   <a href="#"><img src="https://img.shields.io/badge/UoE-University%20of%20Edinburgh-F4A0B5.svg" alt="UoE"></a>
   <a href="http://arxiv.org/abs/2605.19660"><img src="https://img.shields.io/badge/arXiv-2605.19660-B31B1B.svg" alt="arXiv"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-3B82F6.svg" alt="License"></a>
