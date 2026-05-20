@@ -55,15 +55,16 @@ Rather than relying on intricate pipelines, we follow the principle of **Occam's
 ### TNI in X-LLMs
 
 <div align="center">
-  <table>
+  <table cellpadding="15" cellspacing="0" style="border-collapse: collapse; width: 100%;">
     <tr>
-      <td align="center"><strong>Text-Only LLMs</strong><br><img src="pictures/LLM-TNI.png" width="95%"><br><em>Low-norm outlier tokens (Attention Sink tokens)</em></td>
-      <td align="center"><strong>Multi-Modal LLMs</strong><br><img src="pictures/MLLM-TNI.png" width="95%"><br><em>Large-norm outliers</em></td>
+      <td width="33%" align="center"><strong>Text-Only LLMs</strong><br><img src="pictures/LLM-TNI.png" width="95%"><br><em>Low-norm outlier tokens<br>(Attention Sink tokens)</em></td>
+      <td width="33%" align="center"><strong>Multi-Modal LLMs</strong><br><img src="pictures/MLLM-TNI.png" width="95%"><br><em>Large-norm outliers</em></td>
+      <td width="33%" align="center"><strong>Multi-Modal LLMs</strong><br><img src="pictures/MLLM-TNI-2.png" width="95%"><br><em>Inter-modality disparities</em></td>
     </tr>
   </table>
 </div>
 
-> TNI is pervasive across X-LLMs. In text-only models, it manifests as low-norm outlier tokens, also known as Attention Sink tokens. In multi-modal settings, TNI exhibits more diverse forms, including large-norm outliers, broader norm variations, and significant inter-modality disparities. Additional visualizations and detailed experimental configurations are provided in the paper.
+> TNI is pervasive across X-LLMs. In text-only models, it manifests as low-norm outlier tokens, also known as Attention Sink tokens. In multi-modal settings, TNI exhibits more diverse forms, including large-norm outliers, significant inter-modality disparities, and broader norm variations. Additional visualizations and detailed experimental configurations are provided in the paper.
 
 
 ## ✨ Key Features
