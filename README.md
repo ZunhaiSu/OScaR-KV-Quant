@@ -11,7 +11,7 @@
   <a href="#"><img src="https://img.shields.io/badge/HKU-The%20University%20of%20Hong%20Kong-2D68C4.svg" alt="HKU"></a>
   <a href="#"><img src="https://img.shields.io/badge/Team-Meituan%20LongCat-22C55E.svg" alt="Team"></a>
   <a href="#"><img src="https://img.shields.io/badge/UoE-University%20of%20Edinburgh-F4A0B5.svg" alt="UoE"></a>
-  <a href="https://arxiv.org/abs/XXXX.XXXXX"><img src="https://img.shields.io/badge/arXiv-XXXX.XXXXX-B31B1B.svg" alt="arXiv"></a>
+  <a href="http://arxiv.org/abs/2605.19660"><img src="https://img.shields.io/badge/arXiv-2605.19660-B31B1B.svg" alt="arXiv"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-3B82F6.svg" alt="License"></a>
 </div>
 
@@ -19,7 +19,7 @@
 
 - **[Upcoming]** 🔧 vLLM & SGLang backend integration — under active development, official support will be announced in future releases.
 
-- **[2026-05-20]** 🎉 Our paper *"OScaR: The Occam's Razor for Extreme KV Cache Quantization in LLMs and Beyond"* is now available on arXiv! [[Link](https://arxiv.org/abs/XXXX.XXXXX)]
+- **[2026-05-20]** 🎉 Our paper *"OScaR: The Occam's Razor for Extreme KV Cache Quantization in LLMs and Beyond"* is now available on arXiv! [[Link](http://arxiv.org/abs/2605.19660)]
 
 - **[2026-05-19]** 🚀 Codebase and evaluation suite publicly released.
 
@@ -247,7 +247,7 @@ If you find OScaR useful for your research or production, please cite our paper:
 @article{su2026oscar,
   title={OScaR: The Occam's Razor for Extreme KV Cache Quantization in LLMs and Beyond},
   author={Su, Zunhai and Yang, Rui and Zhang, Chao and Liu, Yaxiu and Zhang, Yifan and Wu, Wei and Xiong, Jing and Du, Dayou and Zhuang, Xialie and Qian, Yulei and Xie, Yuchen and Wu, Yik-Chung and Yang, Hongxia and Wong, Ngai},
-  journal={arXiv preprint arXiv:XXXX.XXXXX},
+  journal={arXiv preprint arXiv:2605.19660},
   year={2026}
 }
 ```
