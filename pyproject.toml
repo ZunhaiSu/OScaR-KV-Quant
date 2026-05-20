@@ -16,7 +16,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-cuda = [
+cu124 = [
+    "psutil",
+    "torch==2.6.0",
     "flash-attn==2.8.3",
 ]
 eval = [
@@ -35,6 +37,19 @@ analysis = [
 [project.urls]
 Homepage = "https://github.com/Iridescent-gcrace/OScaR-KV-Quant"
 Repository = "https://github.com/Iridescent-gcrace/OScaR-KV-Quant"
+
+[tool.uv]
+no-build-isolation-package = ["flash-attn"]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cu124", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
 
 [tool.setuptools.packages.find]
 include = ["oscar*", "kv_cache_compression*"]

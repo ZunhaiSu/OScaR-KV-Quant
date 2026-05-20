@@ -138,18 +138,14 @@ source .venv-local/bin/activate
 # Required for CUTLASS headers used by oscar_cuda.
 git submodule update --init --recursive
 
-pip install --index-url https://download.pytorch.org/whl/cu124 torch==2.6.0
-
-# flash-attn's setup imports these packages during a clean source build.
-pip install numpy packaging psutil
-
-# Install flash-attn before the editable package install to avoid fresh-setup build-order issues.
-pip install --no-build-isolation flash-attn==2.8.3
-pip install --no-build-isolation -e ".[eval]"
+# Install dependencies declared in pyproject.toml, including the cu124 torch index
+# pin and flash-attn's no-build-isolation handling.
+uv sync --extra cu124 --extra eval --no-install-project
+uv pip install --no-build-isolation -e .
 ```
 > If you clone with `--recursive`, you should still run `git submodule update --init --recursive` before building to ensure `libs/cutlass` is present.
 >
-> The Python dependency source of truth is `pyproject.toml`. The editable install uses `--no-build-isolation` because the CUDA extension build imports PyTorch from the active environment. `flash-attn` is installed first here because its source build is also sensitive to build order in a clean environment. The first build may take several minutes if a prebuilt wheel is unavailable.
+> The Python dependency source of truth is `pyproject.toml`. `torch==2.6.0`, `psutil`, and `flash-attn==2.8.3` are installed from there, while `tool.uv.sources` pins torch to the `cu124` PyTorch index and `tool.uv.no-build-isolation-package` disables build isolation for `flash-attn`. The final editable install still uses `--no-build-isolation` because this repository's CUDA extension build imports PyTorch from the active environment.
 
 > Tested Environment:
 > - Python `3.10.17`
