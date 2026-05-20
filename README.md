@@ -138,13 +138,16 @@ source oscar-env/bin/activate
 # Required for CUTLASS headers used by oscar_cuda.
 git submodule update --init --recursive
 
+# flash-attn imports torch and psutil during its build, so they must exist first.
+uv pip install "torch==2.6.0+cu124" psutil --index https://download.pytorch.org/whl/cu124
+
 # Install dependencies declared in pyproject.toml, then install the project itself.
 uv sync --active --no-install-project
 uv pip install --no-build-isolation -e .
 ```
 > If you clone with `--recursive`, you should still run `git submodule update --init --recursive` before building to ensure `libs/cutlass` is present.
 >
-> The Python dependency source of truth is `pyproject.toml`. `tool.uv.sources` pins `torch==2.6.0` to the `cu124` PyTorch index, and `tool.uv.no-build-isolation-package` disables build isolation for `flash-attn`. The editable install uses `--no-build-isolation` because this repository's CUDA extension build imports PyTorch from the active environment.
+> The Python dependency source of truth is `pyproject.toml`. `tool.uv.sources` pins `torch==2.6.0` to the `cu124` PyTorch index, and `tool.uv.no-build-isolation-package` disables build isolation for `flash-attn`. The explicit torch/psutil bootstrap step is still required because `flash-attn` imports them while building but does not declare them as build dependencies. The editable install uses `--no-build-isolation` because this repository's CUDA extension build imports PyTorch from the active environment.
 
 > Tested Environment:
 > - Python `3.10.17`
@@ -170,7 +173,6 @@ CUDA_VISIBLE_DEVICES=0 $(which python) eval_longbench.py \
   --max_input_len 32768 \
   --dtype bfloat16 \
   --device cuda:0 \
-  --residual_evict_size 256 \
   --offline_v_hadamard \
   --output_dir pred_e/oscar-qasper \
   --log_every 1 \
