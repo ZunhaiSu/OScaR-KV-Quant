@@ -128,12 +128,13 @@ On the challenging MMAU-Pro benchmark for omni-modal understanding, OScaR surpas
 ## 🛠️ Installation
 
 ```bash
-git clone --recursive https://github.com/ZunhaiSu/OScaR-KV-Quant.git OScaR
+git clone https://github.com/ZunhaiSu/OScaR-KV-Quant.git OScaR
 cd OScaR
 
 uv venv --python 3.10 .venv-local
 source .venv-local/bin/activate
 
+# Required for CUTLASS headers used by oscar_cuda.
 git submodule update --init --recursive
 
 uv pip install --index-url https://download.pytorch.org/whl/cu124 torch==2.6.0
@@ -142,6 +143,8 @@ uv pip install --no-build-isolation flash-attn==2.8.3
 
 python setup.py build_ext --inplace
 ```
+> If you clone with `--recursive`, you should still run `git submodule update --init --recursive` before building to ensure `libs/cutlass` is present.
+
 > Tested Environment:
 > - Python `3.10.17`
 > - PyTorch `2.6.0+cu124`
@@ -154,45 +157,6 @@ Set the model path:
 
 ```bash
 export MODEL_PATH=/path/to/Qwen3-8B
-```
-
-### Smoke Test
-
-Run a quick validation of the installation:
-
-```bash
-CUDA_VISIBLE_DEVICES=0 python evaluation/scripts/run_qwen3_suite.py \
-  --mode smoke \
-  --python_bin "$(which python)" \
-  --model_path "${MODEL_PATH}" \
-  --device cuda:0 \
-  --dtype bfloat16
-```
-
-### Full Benchmark
-
-Run the complete evaluation suite:
-
-```bash
-CUDA_VISIBLE_DEVICES=0 python evaluation/scripts/run_qwen3_suite.py \
-  --mode full \
-  --python_bin "$(which python)" \
-  --model_path "${MODEL_PATH}" \
-  --device cuda:0 \
-  --dtype bfloat16
-```
-
-To skip rebuild if extensions are already compiled:
-
-```bash
-CUDA_VISIBLE_DEVICES=0 python evaluation/scripts/run_qwen3_suite.py \
-  --mode full \
-  --skip_build \
-  --skip_py_compile \
-  --python_bin "$(which python)" \
-  --model_path "${MODEL_PATH}" \
-  --device cuda:0 \
-  --dtype bfloat16
 ```
 
 ### Accuracy Evaluation (Qasper-E)
@@ -220,6 +184,8 @@ $(which python) eval_long_bench.py \
 > - `longbench_data/data/qasper_e.jsonl`
 > - `longbench_config/dataset2prompt.json`
 > - `longbench_config/dataset2maxlen.json`
+>
+> The metric helper `longbench_metrics.py` is part of this repository, and its Python dependencies are included in `requirements.txt`.
 
 
 ### Single Example

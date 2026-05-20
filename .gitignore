@@ -52,5 +52,6 @@ evaluation/results/
 libtorch/
 
 longbench*
+!longbench_metrics.py
 evaluation/results
 QWEN3*

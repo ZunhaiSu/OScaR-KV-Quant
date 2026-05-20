@@ -9,3 +9,6 @@ transformers
 datasets
 accelerate
 tqdm
+jieba
+fuzzywuzzy
+rouge
