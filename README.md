@@ -12,7 +12,7 @@
   <a href="#"><img src="https://img.shields.io/badge/Meituan-LongCat%20Team-22C55E.svg" alt="Team"></a>
   <a href="#"><img src="https://img.shields.io/badge/UoE-University%20of%20Edinburgh-F4A0B5.svg" alt="UoE"></a>
   <a href="http://arxiv.org/abs/2605.19660"><img src="https://img.shields.io/badge/arXiv-2605.19660-B31B1B.svg" alt="arXiv"></a>
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-3B82F6.svg" alt="License"></a>
+  <a href="https://iridescent-gcrace.github.io/OScaR/"><img src="https://img.shields.io/badge/Website-OScaR-FF6B6B.svg" alt="Website"></a>
 </div>
 
 ## 🔥 Latest News
